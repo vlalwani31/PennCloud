@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title> Admin Panel  </title>
+</head>
+
+<style>
+
+.outerblock {
+	background-color: #FFFFFF;
+    color: #fff;
+    height: auto;
+    width: 90%;
+    margin: 0px auto;
+    padding: 5px;
+}
+
+.data {
+	position: relative;
+	width: 65%; 
+	height: auto;
+	background-color: #ACF3E5;
+	border: #ACF3E5;
+	float: left;
+}
+
+.backendNodes {
+	position: relative;
+	width: 30%; 
+	height: auto;
+	background-color: #4EFA0D;
+	border: #4EFA0D;
+	float: right;
+}
+
+ul {
+  color:#000;
+}
+
+
+table.center {
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+table.center th, td {
+  padding: 8px;
+  color: black;
+}
+
+table#dataTable th, td {
+  text-align: left;
+  padding: 15px;
+  color: black;
+  
+}
+
+table#dataTable {
+  margin-left: auto; 
+  margin-right: auto;
+  border-collapse: collapse;
+}
+
+table#dataTable tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+</style>
+
+<body>
+
+<h1 style="text-align:center;">Admin Panel</h1>
+
+
+<div class="outerblock">
+	<div class="data">
+		<h2 style="text-align:center; color:#373131">Data</h1>
+		
+		<table id="dataTable" style="width:90%">
+		
+		  
+		  <tr>
+		    <td>2134141412</td>
+		    <td>huihdioadnoiandis<br>ausdiiaudui</td>
+		  </tr>
+		  
+		  
+		</table>
+		
+		<ul>
+			<li> Key-value pairs </li>
+		
+		
+		</ul>
+		<div id="backendbutton" style="float:right">
+			<button type="submit">Prev</button>
+			<button type="submit">Next</button>
+		</div>
+	</div>
+	
+	<div style = "width = 50px;">
+	</div>
+	
+	
+	<div class="backendNodes">
+		<h2 style="text-align:center;color:#373131">Backend nodes</h1>
+		
+		<table class="center">
+		  <tr>
+		    <th>Node</th>
+		    <th>status</th>
+		    <th></th>
+		    <th></th>
+		  </tr>
+		  <tr>
+		    <td>1</td>
+		    <td>alive</td>
+		    <td><form action = "" method="post"><button name="test" value = "127.0.0.1:ninini">switch</button></form></td>
+		  </tr>
+		  
+		  
+		</table>
+		
+		<ul>
+			<li> Nodes </li>
+		
+		
+		</ul>
+	</div>
+</div>
+
+
+</body>
+</html>

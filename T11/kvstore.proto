@@ -1,0 +1,170 @@
+syntax = "proto3";
+
+package backend;
+
+service KValueStore {
+  rpc GetSeqNum (SeqRequest) returns (SeqResponse) {}
+  rpc PutValues (stream PutRequest) returns (PutResponse) {}
+  rpc GetValues (GetRequest) returns (stream GetResponse) {}
+  rpc CPutValues (CPutRequest) returns (CPutResponse) {}
+  rpc DeleteValues (DeleteRequest) returns (DeleteResponse) {}
+  rpc GetDataId (AdminDataReq) returns (stream AdminDataRsp) {}
+  rpc SwitchServer (AdminSwitchReq) returns (AdminSwitchRsp) {}
+}
+
+message SeqRequest {
+  string row = 1;
+  string col = 2;
+}
+
+message SeqResponse {
+  string status = 1;
+  string version = 2;
+}
+
+message PutRequest {
+  string row = 1;
+  string col = 2;
+  bytes value = 3;
+  string version = 4;
+}
+
+message PutResponse {
+  string status = 1;
+}
+
+message GetRequest {
+  string row = 1;
+  string col = 2;
+}
+
+message GetResponse {
+  string status = 1;
+  bytes value = 2;
+}
+
+message CPutRequest {
+  string row = 1;
+  string col = 2;
+  bytes value1 = 3;
+  bytes value2 = 4;
+  string version = 5;
+} 
+
+message CPutResponse {
+  string status = 1;
+}
+
+message DeleteRequest {
+  string row = 1;
+  string col = 2;
+  string version = 3;
+}
+
+message DeleteResponse {
+  string status = 1;
+}
+
+message AdminDataReq {
+  string id = 1;  // absolute id for all users, start from 0
+}
+
+message AdminDataRsp {
+  string status = 1;  // if status is -ERR, set row, col, value to ""
+  string row = 2;
+  string col = 3;
+  bytes value = 4;
+}
+
+message AdminSwitchReq {
+  string msg = 1; // TODO: could be empty?
+}
+
+message AdminSwitchRsp {
+  string status = 1;
+}
+
+
+service Coordination {
+  // frontend and master node
+  rpc GetActiveServers (AdminSeverReq) returns (AdminSeverRsp) {}
+  // frontend ask a backend server it should talk to, master does load balancing and respond with the one lowest load
+  rpc GetBackend (BkendReq) returns (BkendRsp) {}
+  
+  // master node and backend
+  rpc GetEcho (AdminEchoReq) returns (AdminEchoRsp) {}
+  rpc InitUser (InitUserReq) returns (InitUserRsp) {}
+}
+
+
+
+message AdminSeverReq {
+  string msg = 1; // TODO: could be empty?
+}
+
+message AdminSeverRsp {
+  string status = 1;
+  string serverlist = 2; // e.g. "ip:port,ip:port"
+  string allserverlist = 3;  
+}
+
+
+message AdminEchoReq {
+  string msg = 1; // TODO: could be empty?
+}
+
+message AdminEchoRsp {
+  string status = 1;
+  string serverid = 2; // e.g. "5"
+}
+
+message BkendReq {
+  string rowkey = 1; 
+}
+
+message BkendRsp {
+  string status = 1;
+  string replicas = 2; // e.g. "ip1:port,ip2:port,ip3:port"
+}
+
+message InitUserReq {
+  string rowkey = 1;  // e.g. linh_file
+  string primary = 2; // e.g. ip1:port
+  string replica = 3; // e.g. "ip1:port,ip2:port,ip3:port"
+}
+
+message InitUserRsp {
+  string status = 1;
+}
+
+
+
+
+
+
+service LocalWrite {
+  // send between backend server that receives write command and primary backend server
+  rpc ClaimPrimary (ClaimReq) returns (XferRsp) {}
+
+  // send write msg to all replica, and also update the primary info
+  rpc WriteToReplica (WriteReq) returns (OKRsp) {}
+}
+
+message ClaimReq {
+  string seq = 1;
+  string id = 2; // id of the backend server that wants to be the primary
+}
+
+message XferRsp {
+  string status = 1;
+}
+
+message WriteReq {
+  string seq = 1;
+  string id = 2; // id of the backend server that wants to be the primary
+  bytes log = 3; // actual content
+}
+
+message OKRsp {
+  string status= 1;
+}

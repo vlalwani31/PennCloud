@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title> Main Page  </title>
+</head>
+
+
+<style>
+
+.outerblock {
+	margin: auto;
+	background-color: #FFFFFF;
+    color: #fff;
+    height: auto;
+    width: 90%;
+    margin: 0px auto;
+    padding: 10px;
+}
+
+#email {
+	width: 25%;
+	height: 100px;
+	background-color: #dddddd;
+	float: left;
+	border-radius: 25px;
+}
+
+#storage {
+	width: 25%;
+	height: 100px;
+	background-color: #ACF3E5;
+	float: left;
+	border-radius: 25px;
+}
+
+#admin {
+	width: 25%;
+	height: 100px;
+	background-color: #4EFA0D;
+	float: left;
+	border-radius: 25px;
+}
+
+#blank {
+	width: 12.5%;
+	height: 100px;
+	background-color: #FFFFFF;
+	float: left;
+}
+
+.foo {
+	position: absolute;
+    bottom: 10px;
+    right: 1;
+}
+
+</style>
+
+<body>
+
+<h1 style="text-align:center;">Main Page</h1>
+
+<div class="outerblock">
+	<div id = "email" style="display:flex; justify-content:center; align-items:center">
+	<a href="/email/list"> Email </a>
+	</div>
+	
+	<div id="blank">
+	
+	</div>
+	
+	<div id = "storage" style="display:flex; justify-content:center; align-items:center">
+	<a href="/file/list"> Storage </a>
+	</div>
+	
+	<div id="blank">
+	
+	</div>
+	
+	<div id = "admin" style="display:flex; justify-content:center; align-items:center">
+	<a href="/admin"> Admin </a>
+	</div>
+</div>
+
+<a class="foo" href="/logout"> log out </a>
+
+</body>
+
+
+
+</html>
